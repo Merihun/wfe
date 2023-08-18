@@ -199,11 +199,6 @@
 								"sink": {
 									"path": "$['SourceSystemName']"
 								}
-							},
-							{
-								"sink": {
-									"path": "$['Column_1']"
-								}
 							}
 						]
 					}
