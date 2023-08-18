@@ -18,15 +18,6 @@
 				"typeProperties": {
 					"source": {
 						"type": "DelimitedTextSource",
-						"additionalColumns": [
-							{
-								"name": "SourceName",
-								"value": {
-									"value": "@replace(pipeline().parameters.FileName,'.csv','')",
-									"type": "Expression"
-								}
-							}
-						],
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
 							"recursive": true
@@ -76,7 +67,7 @@
 							},
 							{
 								"source": {
-									"name": "Address Line 1",
+									"name": "Address Line 3",
 									"type": "String"
 								},
 								"sink": {
@@ -90,15 +81,6 @@
 								},
 								"sink": {
 									"path": "$['AddressLine2']"
-								}
-							},
-							{
-								"source": {
-									"name": "Address Line 3",
-									"type": "String"
-								},
-								"sink": {
-									"path": "$['AddressLine1']"
 								}
 							},
 							{
@@ -216,6 +198,11 @@
 								},
 								"sink": {
 									"path": "$['SourceSystemName']"
+								}
+							},
+							{
+								"sink": {
+									"path": "$['Column_1']"
 								}
 							}
 						]
