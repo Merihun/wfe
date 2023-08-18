@@ -220,15 +220,6 @@
 											"type": "String"
 										},
 										"sink": {
-											"path": "$['Source']"
-										}
-									},
-									{
-										"source": {
-											"name": "SourceName",
-											"type": "String"
-										},
-										"sink": {
 											"path": "$['SourceSystemName']"
 										}
 									}
