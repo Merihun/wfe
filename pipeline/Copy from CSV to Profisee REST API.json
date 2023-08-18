@@ -20,7 +20,11 @@
 						"type": "DelimitedTextSource",
 						"additionalColumns": [
 							{
-								"value": "$$FILEPATH"
+								"name": "SourceName",
+								"value": {
+									"value": "@replace(pipeline().parameters.FileName,'.csv','')",
+									"type": "Expression"
+								}
 							}
 						],
 						"storeSettings": {
