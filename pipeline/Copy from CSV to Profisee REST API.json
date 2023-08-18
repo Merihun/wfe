@@ -193,7 +193,8 @@
 							},
 							{
 								"source": {
-									"name": "Source System"
+									"name": "Source System",
+									"type": "String"
 								},
 								"sink": {
 									"path": "$['SourceSystemName']"
