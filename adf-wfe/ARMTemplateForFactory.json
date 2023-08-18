@@ -50,15 +50,6 @@
 						"typeProperties": {
 							"source": {
 								"type": "DelimitedTextSource",
-								"additionalColumns": [
-									{
-										"name": "SourceName",
-										"value": {
-											"value": "@replace(pipeline().parameters.FileName,'.csv','')",
-											"type": "Expression"
-										}
-									}
-								],
 								"storeSettings": {
 									"type": "AzureBlobFSReadSettings",
 									"recursive": true
@@ -75,7 +66,174 @@
 								"writeBatchSize": 10000,
 								"httpCompressionType": "none"
 							},
-							"enableStaging": false
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Customer ID",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['CustomerID']"
+										}
+									},
+									{
+										"source": {
+											"name": "Customer Name",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['CustomerName']"
+										}
+									},
+									{
+										"source": {
+											"name": "Customer Name Line 2",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['CustomerNameLine 2']"
+										}
+									},
+									{
+										"source": {
+											"name": "Address Line 3",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['AddressLine1']"
+										}
+									},
+									{
+										"source": {
+											"name": "Address Line 2",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['AddressLine2']"
+										}
+									},
+									{
+										"source": {
+											"name": "City",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['City']"
+										}
+									},
+									{
+										"source": {
+											"name": "State",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['State']"
+										}
+									},
+									{
+										"source": {
+											"name": "Zip Code",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['ZipCode']"
+										}
+									},
+									{
+										"source": {
+											"name": "Country Code",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['Country']"
+										}
+									},
+									{
+										"source": {
+											"name": "Phone Number",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['PhoneNumber']"
+										}
+									},
+									{
+										"source": {
+											"name": "Fax Number",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['FaxNumber']"
+										}
+									},
+									{
+										"source": {
+											"name": "Customer Type",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['CustomerType']"
+										}
+									},
+									{
+										"source": {
+											"name": "Customer Type - Detail",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['CustomerTypeDetail']"
+										}
+									},
+									{
+										"source": {
+											"name": "Customer Type - Group",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['CustomerTypeGroup']"
+										}
+									},
+									{
+										"source": {
+											"name": "Agile UID",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['AgileUID']"
+										}
+									},
+									{
+										"source": {
+											"name": "Agile Main Parent UID",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['DemcoAgileMainParent UID']"
+										}
+									},
+									{
+										"source": {
+											"name": "Source",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['Source']"
+										}
+									},
+									{
+										"source": {
+											"name": "SourceName",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['SourceSystemName']"
+										}
+									}
+								]
+							}
 						},
 						"inputs": [
 							{
