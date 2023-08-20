@@ -1,0 +1,12 @@
+{
+	"name": "ProfiseeRestNew",
+	"properties": {
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://profiseecloud.com/wfe/rest/v1",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}
