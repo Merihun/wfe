@@ -39,7 +39,82 @@
 					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
-						"mapComplexValuesToString": false
+						"mappings": [
+							{
+								"source": {
+									"path": "['code']"
+								},
+								"sink": {
+									"name": "code"
+								}
+							},
+							{
+								"source": {
+									"path": "['name']"
+								},
+								"sink": {
+									"name": "name"
+								}
+							},
+							{
+								"source": {
+									"path": "['addressLine1']"
+								},
+								"sink": {
+									"name": "addressLine1"
+								}
+							},
+							{
+								"source": {
+									"path": "['addressLine2']"
+								},
+								"sink": {
+									"name": "addressLine2"
+								}
+							},
+							{
+								"source": {
+									"path": "['addressLine3']"
+								},
+								"sink": {
+									"name": "addressLine3"
+								}
+							},
+							{
+								"source": {
+									"path": "['city']"
+								},
+								"sink": {
+									"name": "city"
+								}
+							},
+							{
+								"source": {
+									"path": "['stateProvince']"
+								},
+								"sink": {
+									"name": "stateProvince"
+								}
+							},
+							{
+								"source": {
+									"path": "['postalCode']"
+								},
+								"sink": {
+									"name": "postalCode"
+								}
+							},
+							{
+								"source": {
+									"path": "['country']"
+								},
+								"sink": {
+									"name": "country"
+								}
+							}
+						],
+						"collectionReference": "$['data']",
+						"mapComplexValuesToString": true
 					}
 				},
 				"inputs": [
