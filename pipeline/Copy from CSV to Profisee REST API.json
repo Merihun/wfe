@@ -34,7 +34,93 @@
 						"writeBatchSize": 10000,
 						"httpCompressionType": "none"
 					},
-					"enableStaging": false
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "Code",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['Code']"
+								}
+							},
+							{
+								"source": {
+									"name": "Name",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['Name']"
+								}
+							},
+							{
+								"source": {
+									"name": "AddressLine1",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['AddressLine1']"
+								}
+							},
+							{
+								"source": {
+									"name": "AddressLine2",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['AddressLine2']"
+								}
+							},
+							{
+								"source": {
+									"name": "AddressLine3",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['AddressLine3']"
+								}
+							},
+							{
+								"source": {
+									"name": "City",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['City']"
+								}
+							},
+							{
+								"source": {
+									"name": "StateProvince",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['StateProvince']"
+								}
+							},
+							{
+								"source": {
+									"name": "PostalCode",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['PostalCode']"
+								}
+							},
+							{
+								"source": {
+									"name": "Country",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['Country']"
+								}
+							}
+						]
+					}
 				},
 				"inputs": [
 					{
