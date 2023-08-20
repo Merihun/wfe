@@ -32,6 +32,12 @@
 						"requestInterval": 10,
 						"requestMethod": "PATCH",
 						"writeBatchSize": 10000,
+						"additionalHeaders": {
+							"Source System": {
+								"value": "@replace(pipeline().parameters.FileName,'.csv','')",
+								"type": "Expression"
+							}
+						},
 						"httpCompressionType": "none"
 					},
 					"enableStaging": false,
