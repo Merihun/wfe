@@ -11,15 +11,15 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
 		},
+		"ProfiseeREST_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://profiseecloud.com/wfe/rest/v1"
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://storagewfe.dfs.core.windows.net/"
 		},
-		"AzureKeyVault1_properties_typeProperties_baseUrl": {
-			"type": "string",
-			"defaultValue": "https://wfekv.vault.azure.net/"
-		},
-		"ProfiseeREST_properties_typeProperties_url": {
+		"ProfiseeRestNew_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://profiseecloud.com/wfe/rest/v1"
 		}
@@ -28,6 +28,27 @@
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/ProfiseeREST')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('ProfiseeREST_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous",
+					"authHeaders": {
+						"X-API-Key": {
+							"type": "SecureString",
+							"value": "**********"
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage1')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
@@ -46,31 +67,18 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/AzureKeyVault1')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureKeyVault",
-				"typeProperties": {
-					"baseUrl": "[parameters('AzureKeyVault1_properties_typeProperties_baseUrl')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ProfiseeREST')]",
+			"name": "[concat(parameters('factoryName'), '/ProfiseeRestNew')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
 				"type": "RestService",
 				"typeProperties": {
-					"url": "[parameters('ProfiseeREST_properties_typeProperties_url')]",
+					"url": "[parameters('ProfiseeRestNew_properties_typeProperties_url')]",
 					"enableServerCertificateValidation": true,
 					"authenticationType": "Anonymous",
 					"authHeaders": {
-						"X-API-Key": {
+						"X-API-KEY": {
 							"type": "SecureString",
 							"value": "**********"
 						}
@@ -132,7 +140,7 @@
 			"properties": {
 				"description": "Profisee members update REST API call.",
 				"linkedServiceName": {
-					"referenceName": "ProfiseeREST",
+					"referenceName": "ProfiseeRestNew",
 					"type": "LinkedServiceReference"
 				},
 				"parameters": {
@@ -154,7 +162,7 @@
 				"schema": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ProfiseeREST')]"
+				"[concat(variables('factoryId'), '/linkedServices/ProfiseeRestNew')]"
 			]
 		},
 		{
@@ -201,34 +209,25 @@
 								"mappings": [
 									{
 										"source": {
-											"name": "Customer ID",
+											"name": "Code",
 											"type": "String"
 										},
 										"sink": {
-											"path": "$['CustomerID']"
+											"path": "$['Code']"
 										}
 									},
 									{
 										"source": {
-											"name": "Customer Name",
+											"name": "Name",
 											"type": "String"
 										},
 										"sink": {
-											"path": "$['CustomerName']"
+											"path": "$['Name']"
 										}
 									},
 									{
 										"source": {
-											"name": "Customer Name Line 2",
-											"type": "String"
-										},
-										"sink": {
-											"path": "$['CustomerNameLine 2']"
-										}
-									},
-									{
-										"source": {
-											"name": "Address Line 3",
+											"name": "AddressLine1",
 											"type": "String"
 										},
 										"sink": {
@@ -237,11 +236,20 @@
 									},
 									{
 										"source": {
-											"name": "Address Line 2",
+											"name": "AddressLine2",
 											"type": "String"
 										},
 										"sink": {
 											"path": "$['AddressLine2']"
+										}
+									},
+									{
+										"source": {
+											"name": "AddressLine3",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['AddressLine3']"
 										}
 									},
 									{
@@ -255,101 +263,29 @@
 									},
 									{
 										"source": {
-											"name": "State",
+											"name": "StateProvince",
 											"type": "String"
 										},
 										"sink": {
-											"path": "$['State']"
+											"path": "$['StateProvince']"
 										}
 									},
 									{
 										"source": {
-											"name": "Zip Code",
+											"name": "PostalCode",
 											"type": "String"
 										},
 										"sink": {
-											"path": "$['ZipCode']"
+											"path": "$['PostalCode']"
 										}
 									},
 									{
 										"source": {
-											"name": "Country Code",
+											"name": "Country",
 											"type": "String"
 										},
 										"sink": {
 											"path": "$['Country']"
-										}
-									},
-									{
-										"source": {
-											"name": "Phone Number",
-											"type": "String"
-										},
-										"sink": {
-											"path": "$['PhoneNumber']"
-										}
-									},
-									{
-										"source": {
-											"name": "Fax Number",
-											"type": "String"
-										},
-										"sink": {
-											"path": "$['FaxNumber']"
-										}
-									},
-									{
-										"source": {
-											"name": "Customer Type",
-											"type": "String"
-										},
-										"sink": {
-											"path": "$['CustomerType']"
-										}
-									},
-									{
-										"source": {
-											"name": "Customer Type - Detail",
-											"type": "String"
-										},
-										"sink": {
-											"path": "$['CustomerTypeDetail']"
-										}
-									},
-									{
-										"source": {
-											"name": "Customer Type - Group",
-											"type": "String"
-										},
-										"sink": {
-											"path": "$['CustomerTypeGroup']"
-										}
-									},
-									{
-										"source": {
-											"name": "Agile UID",
-											"type": "String"
-										},
-										"sink": {
-											"path": "$['AgileUID']"
-										}
-									},
-									{
-										"source": {
-											"name": "Agile Main Parent UID",
-											"type": "String"
-										},
-										"sink": {
-											"path": "$['DemcoAgileMainParent UID']"
-										}
-									},
-									{
-										"source": {
-											"name": "Source",
-											"type": "String"
-										},
-										"sink": {
-											"path": "$['SourceSystemName']"
 										}
 									}
 								]
@@ -392,11 +328,11 @@
 				"parameters": {
 					"FileName": {
 						"type": "string",
-						"defaultValue": "DemcoCustomers.csv"
+						"defaultValue": "Profisee-Demo1.csv"
 					},
 					"FileFolder": {
 						"type": "string",
-						"defaultValue": "profisee-input/Customer"
+						"defaultValue": "profisee-input/ADFDemoCustomer"
 					}
 				},
 				"folder": {

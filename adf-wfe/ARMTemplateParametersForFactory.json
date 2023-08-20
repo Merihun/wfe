@@ -8,13 +8,13 @@
 		"AzureDataLakeStorage1_accountKey": {
 			"value": ""
 		},
+		"ProfiseeREST_properties_typeProperties_url": {
+			"value": "https://profiseecloud.com/wfe/rest/v1"
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"value": "https://storagewfe.dfs.core.windows.net/"
 		},
-		"AzureKeyVault1_properties_typeProperties_baseUrl": {
-			"value": "https://wfekv.vault.azure.net/"
-		},
-		"ProfiseeREST_properties_typeProperties_url": {
+		"ProfiseeRestNew_properties_typeProperties_url": {
 			"value": "https://profiseecloud.com/wfe/rest/v1"
 		}
 	}

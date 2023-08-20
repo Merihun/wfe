@@ -11,15 +11,15 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
 		},
+		"ProfiseeREST_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://profiseecloud.com/wfe/rest/v1"
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://storagewfe.dfs.core.windows.net/"
 		},
-		"AzureKeyVault1_properties_typeProperties_baseUrl": {
-			"type": "string",
-			"defaultValue": "https://wfekv.vault.azure.net/"
-		},
-		"ProfiseeREST_properties_typeProperties_url": {
+		"ProfiseeRestNew_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://profiseecloud.com/wfe/rest/v1"
 		},
@@ -53,14 +53,14 @@
 					"AzureDataLakeStorage1_accountKey": {
 						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
 					},
+					"ProfiseeREST_properties_typeProperties_url": {
+						"value": "[parameters('ProfiseeREST_properties_typeProperties_url')]"
+					},
 					"AzureDataLakeStorage1_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
 					},
-					"AzureKeyVault1_properties_typeProperties_baseUrl": {
-						"value": "[parameters('AzureKeyVault1_properties_typeProperties_baseUrl')]"
-					},
-					"ProfiseeREST_properties_typeProperties_url": {
-						"value": "[parameters('ProfiseeREST_properties_typeProperties_url')]"
+					"ProfiseeRestNew_properties_typeProperties_url": {
+						"value": "[parameters('ProfiseeRestNew_properties_typeProperties_url')]"
 					}
 				}
 			},

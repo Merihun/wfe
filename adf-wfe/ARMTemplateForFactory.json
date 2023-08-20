@@ -11,15 +11,15 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
 		},
+		"ProfiseeREST_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://profiseecloud.com/wfe/rest/v1"
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://storagewfe.dfs.core.windows.net/"
 		},
-		"AzureKeyVault1_properties_typeProperties_baseUrl": {
-			"type": "string",
-			"defaultValue": "https://wfekv.vault.azure.net/"
-		},
-		"ProfiseeREST_properties_typeProperties_url": {
+		"ProfiseeRestNew_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://profiseecloud.com/wfe/rest/v1"
 		}
@@ -29,257 +29,63 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/Copy from CSV to Profisee REST API')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
+			"name": "[concat(parameters('factoryName'), '/ProfiseeREST')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"activities": [
-					{
-						"name": "Copy from CSV to Profisee REST API",
-						"description": "Copy records from ADLS Gen2 in CSV format to Profisee via the Profisee REST API.",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "AzureBlobFSReadSettings",
-									"recursive": true
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
-							},
-							"sink": {
-								"type": "RestSink",
-								"httpRequestTimeout": "00:01:40",
-								"requestInterval": 10,
-								"requestMethod": "PATCH",
-								"writeBatchSize": 10000,
-								"httpCompressionType": "none"
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"name": "Customer ID",
-											"type": "String"
-										},
-										"sink": {
-											"path": "$['CustomerID']"
-										}
-									},
-									{
-										"source": {
-											"name": "Customer Name",
-											"type": "String"
-										},
-										"sink": {
-											"path": "$['CustomerName']"
-										}
-									},
-									{
-										"source": {
-											"name": "Customer Name Line 2",
-											"type": "String"
-										},
-										"sink": {
-											"path": "$['CustomerNameLine 2']"
-										}
-									},
-									{
-										"source": {
-											"name": "Address Line 3",
-											"type": "String"
-										},
-										"sink": {
-											"path": "$['AddressLine1']"
-										}
-									},
-									{
-										"source": {
-											"name": "Address Line 2",
-											"type": "String"
-										},
-										"sink": {
-											"path": "$['AddressLine2']"
-										}
-									},
-									{
-										"source": {
-											"name": "City",
-											"type": "String"
-										},
-										"sink": {
-											"path": "$['City']"
-										}
-									},
-									{
-										"source": {
-											"name": "State",
-											"type": "String"
-										},
-										"sink": {
-											"path": "$['State']"
-										}
-									},
-									{
-										"source": {
-											"name": "Zip Code",
-											"type": "String"
-										},
-										"sink": {
-											"path": "$['ZipCode']"
-										}
-									},
-									{
-										"source": {
-											"name": "Country Code",
-											"type": "String"
-										},
-										"sink": {
-											"path": "$['Country']"
-										}
-									},
-									{
-										"source": {
-											"name": "Phone Number",
-											"type": "String"
-										},
-										"sink": {
-											"path": "$['PhoneNumber']"
-										}
-									},
-									{
-										"source": {
-											"name": "Fax Number",
-											"type": "String"
-										},
-										"sink": {
-											"path": "$['FaxNumber']"
-										}
-									},
-									{
-										"source": {
-											"name": "Customer Type",
-											"type": "String"
-										},
-										"sink": {
-											"path": "$['CustomerType']"
-										}
-									},
-									{
-										"source": {
-											"name": "Customer Type - Detail",
-											"type": "String"
-										},
-										"sink": {
-											"path": "$['CustomerTypeDetail']"
-										}
-									},
-									{
-										"source": {
-											"name": "Customer Type - Group",
-											"type": "String"
-										},
-										"sink": {
-											"path": "$['CustomerTypeGroup']"
-										}
-									},
-									{
-										"source": {
-											"name": "Agile UID",
-											"type": "String"
-										},
-										"sink": {
-											"path": "$['AgileUID']"
-										}
-									},
-									{
-										"source": {
-											"name": "Agile Main Parent UID",
-											"type": "String"
-										},
-										"sink": {
-											"path": "$['DemcoAgileMainParent UID']"
-										}
-									},
-									{
-										"source": {
-											"name": "Source",
-											"type": "String"
-										},
-										"sink": {
-											"path": "$['SourceSystemName']"
-										}
-									}
-								]
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "AdlsGen2BlobCsv",
-								"type": "DatasetReference",
-								"parameters": {
-									"FolderName": {
-										"value": "@pipeline().parameters.FileFolder",
-										"type": "Expression"
-									},
-									"FileName": {
-										"value": "@pipeline().parameters.FileName",
-										"type": "Expression"
-									}
-								}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "ProfiseeRESTAPI_Records_Upsert",
-								"type": "DatasetReference",
-								"parameters": {
-									"entityId": {
-										"value": "@replace(pipeline().parameters.FileFolder, 'profisee-input/', '')",
-										"type": "Expression"
-									}
-								}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"FileName": {
-						"type": "string",
-						"defaultValue": "DemcoCustomers.csv"
-					},
-					"FileFolder": {
-						"type": "string",
-						"defaultValue": "profisee-input/Customer"
-					}
-				},
-				"folder": {
-					"name": "CSV Format"
-				},
 				"annotations": [],
-				"lastPublishTime": "2020-09-25T15:29:08Z"
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('ProfiseeREST_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous",
+					"authHeaders": {
+						"X-API-Key": {
+							"type": "SecureString",
+							"value": "**********"
+						}
+					}
+				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/AdlsGen2BlobCsv')]",
-				"[concat(variables('factoryId'), '/datasets/ProfiseeRESTAPI_Records_Upsert')]"
-			]
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ProfiseeRestNew')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('ProfiseeRestNew_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous",
+					"authHeaders": {
+						"X-API-KEY": {
+							"type": "SecureString",
+							"value": "**********"
+						}
+					}
+				}
+			},
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/AdlsGen2BlobCsv')]",
@@ -334,7 +140,7 @@
 			"properties": {
 				"description": "Profisee members update REST API call.",
 				"linkedServiceName": {
-					"referenceName": "ProfiseeREST",
+					"referenceName": "ProfiseeRestNew",
 					"type": "LinkedServiceReference"
 				},
 				"parameters": {
@@ -356,59 +162,189 @@
 				"schema": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ProfiseeREST')]"
+				"[concat(variables('factoryId'), '/linkedServices/ProfiseeRestNew')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage1')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"name": "[concat(parameters('factoryName'), '/Copy from CSV to Profisee REST API')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"annotations": [],
-				"type": "AzureBlobFS",
-				"typeProperties": {
-					"url": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]",
-					"accountKey": {
-						"type": "SecureString",
-						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
+				"activities": [
+					{
+						"name": "Copy from CSV to Profisee REST API",
+						"description": "Copy records from ADLS Gen2 in CSV format to Profisee via the Profisee REST API.",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "RestSink",
+								"httpRequestTimeout": "00:01:40",
+								"requestInterval": 10,
+								"requestMethod": "PATCH",
+								"writeBatchSize": 10000,
+								"httpCompressionType": "none"
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Code",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['Code']"
+										}
+									},
+									{
+										"source": {
+											"name": "Name",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['Name']"
+										}
+									},
+									{
+										"source": {
+											"name": "AddressLine1",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['AddressLine1']"
+										}
+									},
+									{
+										"source": {
+											"name": "AddressLine2",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['AddressLine2']"
+										}
+									},
+									{
+										"source": {
+											"name": "AddressLine3",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['AddressLine3']"
+										}
+									},
+									{
+										"source": {
+											"name": "City",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['City']"
+										}
+									},
+									{
+										"source": {
+											"name": "StateProvince",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['StateProvince']"
+										}
+									},
+									{
+										"source": {
+											"name": "PostalCode",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['PostalCode']"
+										}
+									},
+									{
+										"source": {
+											"name": "Country",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['Country']"
+										}
+									}
+								]
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "AdlsGen2BlobCsv",
+								"type": "DatasetReference",
+								"parameters": {
+									"FolderName": {
+										"value": "@pipeline().parameters.FileFolder",
+										"type": "Expression"
+									},
+									"FileName": {
+										"value": "@pipeline().parameters.FileName",
+										"type": "Expression"
+									}
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ProfiseeRESTAPI_Records_Upsert",
+								"type": "DatasetReference",
+								"parameters": {
+									"entityId": {
+										"value": "@replace(pipeline().parameters.FileFolder, 'profisee-input/', '')",
+										"type": "Expression"
+									}
+								}
+							}
+						]
 					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureKeyVault1')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureKeyVault",
-				"typeProperties": {
-					"baseUrl": "[parameters('AzureKeyVault1_properties_typeProperties_baseUrl')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ProfiseeREST')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "RestService",
-				"typeProperties": {
-					"url": "[parameters('ProfiseeREST_properties_typeProperties_url')]",
-					"enableServerCertificateValidation": true,
-					"authenticationType": "Anonymous",
-					"authHeaders": {
-						"X-API-Key": {
-							"type": "SecureString",
-							"value": "**********"
-						}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"FileName": {
+						"type": "string",
+						"defaultValue": "Profisee-Demo1.csv"
+					},
+					"FileFolder": {
+						"type": "string",
+						"defaultValue": "profisee-input/ADFDemoCustomer"
 					}
-				}
+				},
+				"folder": {
+					"name": "CSV Format"
+				},
+				"annotations": [],
+				"lastPublishTime": "2020-09-25T15:29:08Z"
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/AdlsGen2BlobCsv')]",
+				"[concat(variables('factoryId'), '/datasets/ProfiseeRESTAPI_Records_Upsert')]"
+			]
 		}
 	]
 }
