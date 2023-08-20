@@ -1,12 +1,19 @@
 {
 	"name": "ProfiseeRestNew",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
 		"annotations": [],
 		"type": "RestService",
 		"typeProperties": {
 			"url": "https://profiseecloud.com/wfe/rest/v1",
 			"enableServerCertificateValidation": true,
-			"authenticationType": "Anonymous"
+			"authenticationType": "Anonymous",
+			"authHeaders": {
+				"X-API-KEY": {
+					"type": "SecureString",
+					"value": "**********"
+				}
+			}
 		}
 	}
 }
