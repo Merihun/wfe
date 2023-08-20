@@ -81,7 +81,7 @@
 		"variables": {
 			"OutputContainer": {
 				"type": "String",
-				"defaultValue": "profisee-output/ADFDemoCustomer"
+				"defaultValue": "profisee-output"
 			},
 			"EntityId": {
 				"type": "String",
