@@ -1,0 +1,9 @@
+{
+	"name": "wfe-adf-2",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "a0220789-8128-47d8-9956-390d54c97b40",
+		"tenantId": "1fefd6cb-62fe-43df-b2f2-1f77d3826228"
+	}
+}
